@@ -1,0 +1,20 @@
+pnpm create vite
+pnpm add @tanstack/react-query
+pnpm add zod
+pnpm add @mui/material @emotion/react @emotion/styled
+pnpm add @fontsource/roboto
+pnpm add @mui/icons-material
+
+CoinAPI API Key: 6aae23cf-f0c0-47c5-9324-10a14bf00fa3
+CoinAPI API ID: 3529ca95
+type: Market Data API
+
+pnpm add @nivo/core @nivo/bar [ISSUE with React]
+pnpm update react@16.14.0 react-dom@16.14.0
+pnpm update react@18.3.1 react-dom@18.3.1
+pnpm add ag-grid-react
+pnpm add echarts-for-react
+
+pnpm add tailwindcss @tailwindcss/vite
+
+update vite.config.ts for tailwind
