@@ -5,10 +5,19 @@ export type GetExchangeInput = {
 };
 
 export type TransformedCryptoData = {
-  id: 'rate_close' | 'rate_high' | 'rate_low' | 'rate_open';
+  id: 'rate_low' | 'rate_close' | 'rate_open' | 'rate_high';
   color: string;
   data: { x: string; y: number }[];
 };
+
+export type TransformedExchangeResponse = {
+  id: 'rate_low' | 'rate_close' | 'rate_open' | 'rate_high';
+  color: string;
+  data: {
+    x: Date;
+    y: number;
+  }[];
+}[];
 
 export type GetScatterInput = {
   start: string;

@@ -1,10 +1,12 @@
 import { ScatterApiResponse, type CryptoApiResponse } from './schemas';
-import { ScatterChartSeries } from './types';
+import type { ScatterChartSeries, TransformedExchangeResponse } from './types';
 
 const rateTypes = ['rate_low', 'rate_close', 'rate_open', 'rate_high'] as const;
 type RateType = (typeof rateTypes)[number];
 
-const transformCryptoData = (parsedData: CryptoApiResponse) => {
+const transformCryptoData = (
+  parsedData: CryptoApiResponse
+): TransformedExchangeResponse => {
   const transformed = rateTypes.map((rateType: RateType, index) => ({
     id: rateType,
     color: `hsl(${(index * 90) % 360}, 70%, 50%)`, // Generate unique colors
@@ -19,18 +21,53 @@ const transformCryptoData = (parsedData: CryptoApiResponse) => {
   return transformed;
 };
 
+// const transformScatterData = (
+//   parsedData: ScatterApiResponse
+// ): ScatterChartSeries[] => {
+//   return Object.entries(parsedData).map(([series_name, data]) => ({
+//     name: series_name,
+//     type: 'scatter' as const,
+//     data: data
+//       .map(
+//         (entry) => [entry.price_close, entry.volume_traded] as [number, number]
+//       )
+//       .sort((a, b) => a[0] - b[0]), // Sort by price
+//   }));
+// };
+
 const transformScatterData = (
   parsedData: ScatterApiResponse
-): ScatterChartSeries[] => {
-  return Object.entries(parsedData).map(([key, data]) => ({
-    name: key, // Series name (BTC, ETH, XRP)
-    type: 'scatter' as const, // 🔹 Ensure it's a literal type, not just a string
-    data: data
-      .map(
-        (entry) => [entry.price_close, entry.volume_traded] as [number, number]
-      ) // 🔹 Explicitly enforce tuple type
-      .sort((a, b) => a[0] - b[0]), // Ensure sorted by price (X-axis)
-  }));
+): {
+  BTC: ScatterChartSeries;
+  ETH: ScatterChartSeries;
+  XRP: ScatterChartSeries;
+} => {
+  return {
+    BTC: {
+      name: 'BTC',
+      type: 'scatter',
+      data: parsedData.BTC.map((entry) => [
+        entry.price_close,
+        entry.volume_traded,
+      ]),
+    },
+    ETH: {
+      name: 'ETH',
+      type: 'scatter',
+      data: parsedData.ETH.map((entry) => [
+        entry.price_close,
+        entry.volume_traded,
+      ]),
+    },
+    XRP: {
+      name: 'XRP',
+      type: 'scatter',
+      data: parsedData.XRP.map((entry) => [
+        entry.price_close,
+        entry.volume_traded,
+      ]),
+    },
+  };
 };
 
 export { transformCryptoData, transformScatterData };

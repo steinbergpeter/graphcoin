@@ -39,13 +39,10 @@ export const queryScatter = async ({
   for (const [key, symbol] of Object.entries(symbols)) {
     const url = `${baseUrl}ohlcv/${symbol}/history?period_id=1DAY&time_start=${start}&time_end=${end}`;
     const response = await fetch(url, config);
-
     if (!response.ok) {
       throw new Error(`Failed to fetch ${key} data: ${response.statusText}`);
     }
-
     responses[key as keyof ScatterApiResponse] = await response.json();
   }
-
   return responses as ScatterApiResponse; // Assert as CryptoResponse since we filled all keys
 };

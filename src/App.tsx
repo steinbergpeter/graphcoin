@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import { Exchange } from './components/nivo-exchange';
+// import { Exchange } from './components/nivo-exchange';
 import { ScatterChart } from './components/echart-scatter';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
     >
       <Typography variant='h3'>GraphCoin!</Typography>
 
-      <Exchange />
+      {/* <Exchange /> */}
       <ScatterChart />
     </Container>
   );
