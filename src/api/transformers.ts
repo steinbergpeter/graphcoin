@@ -1,5 +1,14 @@
-import { ScatterApiResponse, type CryptoApiResponse } from './schemas';
-import type { ScatterChartSeries, TransformedExchangeResponse } from './types';
+import {
+  ScatterApiResponse,
+  type CryptoApiResponse,
+  type LatestTradesResponse,
+  // type LatestTradesResponse,
+} from './schemas';
+import type {
+  ScatterChartSeries,
+  TransformedExchangeResponse,
+  TransformedLatestTrades,
+} from './types';
 
 const rateTypes = ['rate_low', 'rate_close', 'rate_open', 'rate_high'] as const;
 type RateType = (typeof rateTypes)[number];
@@ -20,20 +29,6 @@ const transformCryptoData = (
 
   return transformed;
 };
-
-// const transformScatterData = (
-//   parsedData: ScatterApiResponse
-// ): ScatterChartSeries[] => {
-//   return Object.entries(parsedData).map(([series_name, data]) => ({
-//     name: series_name,
-//     type: 'scatter' as const,
-//     data: data
-//       .map(
-//         (entry) => [entry.price_close, entry.volume_traded] as [number, number]
-//       )
-//       .sort((a, b) => a[0] - b[0]), // Sort by price
-//   }));
-// };
 
 const transformScatterData = (
   parsedData: ScatterApiResponse
@@ -70,4 +65,40 @@ const transformScatterData = (
   };
 };
 
-export { transformCryptoData, transformScatterData };
+const transformLatestTrades = (
+  parsedData: LatestTradesResponse
+): TransformedLatestTrades => {
+  return parsedData.map((trade) => ({
+    'Symbol ID': trade.symbol_id,
+    'Time Exchange': new Date(trade.time_exchange).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    }),
+    'Time CoinAPI': new Date(trade.time_coinapi).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    }),
+    ID: trade.uuid,
+    Price: new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(trade.price),
+    Size: trade.size,
+    'Taker Side': trade.taker_side,
+  }));
+};
+
+export {
+  transformCryptoData,
+  transformScatterData,
+  // transformTableData,
+  transformLatestTrades,
+};

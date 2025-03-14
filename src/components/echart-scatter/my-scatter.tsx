@@ -1,12 +1,18 @@
-import { useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
-import { useScatterData } from '../../api/hooks';
+import { useEffect, useRef } from 'react';
+import type { ScatterChartSeries } from '../../api/types';
 
-const MyScatter = () => {
-  const start = '2025-03-01T00:00:00Z';
-  const end = '2025-03-12T00:00:00Z';
+type MyScatterProps = {
+  data:
+    | {
+        BTC: ScatterChartSeries;
+        ETH: ScatterChartSeries;
+        XRP: ScatterChartSeries;
+      }
+    | undefined;
+};
 
-  const { data, isLoading, isError, error } = useScatterData({ start, end });
+const MyScatter = ({ data }: MyScatterProps) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
 
@@ -17,62 +23,73 @@ const MyScatter = () => {
         renderer: 'canvas',
       });
     }
+  }, []);
 
-    if (data) {
-      const options = {
-        title: { text: 'Scatter Chart of Crypto Trading Volume and Price' },
-        tooltip: { trigger: 'item' },
-        xAxis: {
-          type: 'value',
-          name: 'Price Close',
-          nameLocation: 'middle',
-          nameGap: 30,
-        },
-        yAxis: {
-          type: 'value',
-          name: 'Volume Traded',
-          nameLocation: 'middle',
-          nameGap: 40,
-        },
-        series: [
-          {
-            name: 'BTC',
-            type: 'scatter',
-            data: data.BTC.data.map((item) => [item[0], item[1]]),
-            itemStyle: { color: '#FF5733' },
-          },
-          {
-            name: 'ETH',
-            type: 'scatter',
-            data: data.ETH.data.map((item) => [item[0], item[1]]),
-            itemStyle: { color: '#4285F4' },
-          },
-          {
-            name: 'XRP',
-            type: 'scatter',
-            data: data.XRP.data.map((item) => [item[0], item[1]]),
-            itemStyle: { color: '#FFC300' },
-          },
-        ],
-      };
-      chartInstance.current.setOption(options);
-    }
+  useEffect(() => {
+    if (!data || !chartInstance.current) return;
 
-    return () => {
-      if (chartInstance.current) {
-        chartInstance.current.dispose();
-        chartInstance.current = null;
-      }
+    const options = {
+      tooltip: { trigger: 'item' },
+      xAxis: {
+        type: 'log',
+        name: 'Price Close',
+        nameLocation: 'middle',
+        nameGap: 30,
+        max: 130000,
+      },
+      yAxis: {
+        type: 'log',
+        name: 'Volume Traded',
+        nameLocation: 'middle',
+        nameGap: 40,
+        axisLabel: {
+          formatter: (value: number) => `10^${Math.log10(value).toFixed(0)}`,
+        },
+      },
+      series: [
+        {
+          name: 'BTC',
+          type: 'scatter',
+          data: data.BTC.data.map((item) => [item[0], item[1]]),
+          itemStyle: { color: '#FF5733' },
+        },
+        {
+          name: 'ETH',
+          type: 'scatter',
+          data: data.ETH.data.map((item) => [item[0], item[1]]),
+          itemStyle: { color: '#4285F4' },
+        },
+        {
+          name: 'XRP',
+          type: 'scatter',
+          data: data.XRP.data.map((item) => [item[0], item[1]]),
+          itemStyle: { color: '#FFC300' },
+        },
+      ],
     };
+
+    chartInstance.current.setOption(options, {
+      notMerge: true,
+      lazyUpdate: true,
+    });
   }, [data]);
 
-  if (isLoading) return <p>Loading scatter data...</p>;
-  if (isError) return <p>Error: {error?.message}</p>;
+  useEffect(() => {
+    if (!chartRef.current) return;
+    const observer = new ResizeObserver(() => {
+      if (chartInstance.current) {
+        chartInstance.current.resize();
+      }
+    });
+
+    observer.observe(chartRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
       ref={chartRef}
-      style={{ width: '100%', height: '400px', backgroundColor: '' }}
+      style={{ width: '500px', height: '500px', marginLeft: '2em' }}
     />
   );
 };

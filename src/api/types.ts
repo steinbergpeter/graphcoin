@@ -29,3 +29,17 @@ export type ScatterChartSeries = {
   type: 'scatter'; // Always "scatter" for this chart
   data: [number, number][]; // Array of [price, volume] pairs
 };
+
+//TABLE
+
+export type TransformedTrade = {
+  'Symbol ID': string;
+  'Time Exchange': string;
+  'Time CoinAPI': string;
+  ID: string;
+  Price: string;
+  Size: number;
+  'Taker Side': string;
+};
+
+export type TransformedLatestTrades = TransformedTrade[];

@@ -2,8 +2,8 @@ import type { SxProps, Theme } from '@mui/material/styles';
 
 const styles: Record<string, SxProps<Theme>> = {
   container: {
+    width: '40%',
     height: 550,
-    width: '100%',
     border: 4,
     borderColor: 'primary.main',
     display: 'flex',
@@ -12,10 +12,11 @@ const styles: Record<string, SxProps<Theme>> = {
     alignItems: 'center',
     padding: 2,
     borderRadius: 3,
+    backgroundColor: 'white',
   },
   loadingContainer: {
+    width: '50%',
     height: 550,
-    width: '100%',
     border: 4,
     backgroundColor: 'green',
     borderColor: 'primary.main',
@@ -27,7 +28,7 @@ const styles: Record<string, SxProps<Theme>> = {
     borderRadius: 3,
   },
   chartWrapper: {
-    width: '80%',
+    width: '100%',
     height: 420,
     marginBottom: 0,
     backgroundColor: 'pink',

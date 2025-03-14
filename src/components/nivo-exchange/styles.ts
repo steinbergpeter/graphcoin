@@ -3,7 +3,7 @@ import type { SxProps, Theme } from '@mui/material/styles';
 const styles: Record<string, SxProps<Theme>> = {
   container: {
     height: 550,
-    width: '80%',
+    width: '40%',
     border: 4,
     borderColor: 'primary.main',
     display: 'flex',
@@ -11,6 +11,7 @@ const styles: Record<string, SxProps<Theme>> = {
     alignItems: 'center',
     padding: 2,
     borderRadius: 3,
+    backgroundColor: 'white',
   },
   loadingContainer: {
     height: 550,

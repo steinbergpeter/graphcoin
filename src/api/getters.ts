@@ -1,12 +1,23 @@
-import { queryExchange, queryScatter } from './queries';
-import { transformCryptoData, transformScatterData } from './transformers';
+import { queryExchange, queryLatestTrades, queryScatter } from './queries';
+import {
+  transformCryptoData,
+  transformLatestTrades,
+  transformScatterData,
+} from './transformers';
 import type {
   GetExchangeInput,
   GetScatterInput,
   ScatterChartSeries,
+  TransformedLatestTrades,
 } from './types';
-import { validator } from './validators';
-import { CryptoApiResponseSchema, scatterApiResponseSchema } from './schemas';
+import { validator } from './validator';
+import {
+  CryptoApiResponseSchema,
+  LatestTradesResponseSchema,
+  scatterApiResponseSchema,
+  type LatestTradesInput,
+  // type LatestTradesResponse,
+} from './schemas';
 
 const getExchange = async ({ exchange, start, end }: GetExchangeInput) => {
   try {
@@ -18,21 +29,6 @@ const getExchange = async ({ exchange, start, end }: GetExchangeInput) => {
     console.log((error as Error).message);
   }
 };
-
-// const getScatter = async ({
-//   start,
-//   end,
-// }: GetScatterInput): Promise<ScatterChartSeries[]> => {
-//   try {
-//     const rawApiData: unknown = await queryScatter({ start, end });
-//     const validatedApiData = validator(rawApiData, scatterApiResponseSchema);
-//     const transformedData = transformScatterData(validatedApiData);
-//     return transformedData;
-//   } catch (error) {
-//     console.log((error as Error).message);
-//     return [];
-//   }
-// };
 
 const getScatter = async ({
   start,
@@ -57,4 +53,18 @@ const getScatter = async ({
   }
 };
 
-export { getExchange, getScatter };
+const getLatestTrades = async ({
+  limit,
+}: LatestTradesInput): Promise<TransformedLatestTrades> => {
+  try {
+    const rawApiData: unknown = await queryLatestTrades({ limit });
+    const validatedApiData = validator(rawApiData, LatestTradesResponseSchema);
+    const transformedData = transformLatestTrades(validatedApiData);
+    return transformedData;
+  } catch (error) {
+    console.log((error as Error).message);
+    return [];
+  }
+};
+
+export { getExchange, getScatter, getLatestTrades };

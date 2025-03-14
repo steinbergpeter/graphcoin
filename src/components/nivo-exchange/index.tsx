@@ -4,7 +4,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Typography from '@mui/material/Typography';
 import { useState, type MouseEvent } from 'react';
 import { useExchange } from '../../api/hooks';
-import { getPastDate } from './helpers';
+import { getPastDate } from './utilities';
 import { MyResponsiveLine } from './my-responsive-line';
 import styles from './styles';
 
@@ -36,6 +36,23 @@ const Exchange = () => {
 
   const { data, isLoading, isError } = useExchange(input);
 
+  if (isLoading)
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '450px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white',
+        }}
+      >
+        <Typography variant='h5' fontWeight='semibold' color='primary'>
+          Loading line-chart data...
+        </Typography>
+      </div>
+    );
   if (isLoading || isError || !data)
     return (
       <Box sx={styles.loadingContainer}>

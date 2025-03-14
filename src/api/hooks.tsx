@@ -4,7 +4,8 @@ import type {
   ScatterChartSeries,
   GetScatterInput,
 } from './types';
-import { getExchange, getScatter } from './getters';
+import { getExchange, getScatter, getLatestTrades } from './getters';
+import type { LatestTradesInput } from './schemas';
 
 const useExchange = ({ exchange, start, end }: GetExchangeInput) => {
   const query = useQuery({
@@ -46,4 +47,20 @@ const useScatterData = ({ start, end }: GetScatterInput) => {
   };
 };
 
-export { useExchange, useScatterData };
+const useLatestTrades = ({ limit }: LatestTradesInput) => {
+  const query = useQuery({
+    queryKey: ['latestTrades', limit],
+    queryFn: () => getLatestTrades({ limit }),
+    retry: 2,
+    retryDelay: (attempt) => 1000 * attempt,
+  });
+
+  return {
+    ...query,
+    isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error as Error | null,
+  };
+};
+
+export { useExchange, useScatterData, useLatestTrades };
