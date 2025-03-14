@@ -65,35 +65,55 @@ const transformScatterData = (
   };
 };
 
+const parseSymbolId = (symbol_id: string) => {
+  const parts = symbol_id.split('_');
+
+  return {
+    exchange: parts[0], // Exchange name (e.g., GATEIOPERP, BITSTAMP)
+    marketType: parts[1], // Market type (e.g., SPOT, PERP, FUTURES)
+    baseAsset: parts[2], // Base asset (e.g., BTC, ETH)
+    quoteAsset: parts[3], // Quote currency (e.g., USDT, USD)
+  };
+};
+
 const transformLatestTrades = (
   parsedData: LatestTradesResponse
 ): TransformedLatestTrades => {
-  return parsedData.map((trade) => ({
-    'Symbol ID': trade.symbol_id,
-    'Time Exchange': new Date(trade.time_exchange).toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    }),
-    'Time CoinAPI': new Date(trade.time_coinapi).toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    }),
-    ID: trade.uuid,
-    Price: new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(trade.price),
-    Size: trade.size,
-    'Taker Side': trade.taker_side,
-  }));
+  return parsedData.map((trade) => {
+    const { exchange, marketType, baseAsset, quoteAsset } = parseSymbolId(
+      trade.symbol_id
+    );
+
+    return {
+      Exchange: exchange, // ✅ Extracted from symbol_id
+      'Market Type': marketType, // ✅ Extracted from symbol_id
+      'Base Asset': baseAsset, // ✅ Extracted from symbol_id
+      'Quote Asset': quoteAsset, // ✅ Extracted from symbol_id
+      'Time Exchange': new Date(trade.time_exchange).toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }),
+      'Time CoinAPI': new Date(trade.time_coinapi).toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }),
+      ID: trade.uuid,
+      Price: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(trade.price),
+      Size: trade.size,
+      'Taker Side': trade.taker_side,
+    };
+  });
 };
 
 export {

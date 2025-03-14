@@ -1,26 +1,67 @@
+import { useState } from 'react';
 import { useLatestTrades } from '../../api/hooks';
 import { LatestTradesGrid } from './aggrid';
-import { Box } from '@mui/material';
+import { Box, Button, ButtonGroup, Card, Typography } from '@mui/material';
+import styles from '../../styles/styles';
 
 const LatestTrades = () => {
-  const { data } = useLatestTrades({ limit: 10 }); // Example usage of the hook, adjust as needed
+  const [limit, setLimit] = useState<number>(20); // Placeholder for limit state, if needed
+  const { data, isLoading, refetch } = useLatestTrades({ limit });
+
+  const refetchData = () => refetch();
 
   return (
-    <Box
-      sx={{
-        width: '82%',
-        height: '45vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'primary.main',
-        borderRadius: '10px',
-        padding: '4px',
-      }}
-    >
+    <Card sx={styles.outerCardTable}>
+      {data && (
+        <Box sx={styles.tableButtons}>
+          <Typography variant='h5' color='grey.800' fontWeight='bold'>
+            Latest {limit} Trades as of{' '}
+            {new Date(data[0]['Time CoinAPI']).toLocaleString()}
+          </Typography>
+
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <Button onClick={refetchData} variant='contained' color='primary'>
+              Update
+            </Button>
+
+            <ButtonGroup
+              variant='text'
+              color='primary'
+              aria-label='outlined primary button group'
+            >
+              {[10, 20, 50, 100].map((value) => (
+                <Button
+                  key={value}
+                  variant='outlined'
+                  onClick={() => setLimit(value)}
+                  sx={{
+                    backgroundColor:
+                      limit === value ? 'primary.main' : 'transparent',
+                    color: limit === value ? 'white' : 'inherit',
+                  }}
+                >
+                  {value}
+                </Button>
+              ))}
+            </ButtonGroup>
+          </Box>
+        </Box>
+      )}
+
+      {data && data.length === 0 && (
+        <Typography variant='h5' fontWeight='semibold' color='primary'>
+          No trades available
+        </Typography>
+      )}
+
+      {isLoading && (
+        <Typography variant='h5' fontWeight='semibold' color='primary'>
+          Loading...
+        </Typography>
+      )}
+
       <LatestTradesGrid data={data} />
-    </Box>
+    </Card>
   );
 };
 

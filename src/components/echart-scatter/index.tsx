@@ -4,7 +4,8 @@ import Typography from '@mui/material/Typography';
 import { useMemo, useState } from 'react';
 import { useScatterData } from '../../api/hooks';
 import { MyScatter } from './my-scatter';
-import styles from './styles';
+import styles from '../../styles/styles';
+import { Card } from '@mui/material';
 
 const ScatterChart = () => {
   const end = useMemo(() => new Date().toISOString(), []);
@@ -20,7 +21,7 @@ const ScatterChart = () => {
 
   return (
     <>
-      <Box sx={styles.container}>
+      <Card sx={styles.outerCardGraph}>
         <Typography variant='h5' fontWeight='bold' color='primary'>
           Volume vs. Price for BTC, ETH, XRP
         </Typography>
@@ -80,7 +81,7 @@ const ScatterChart = () => {
             ▶
           </Button>
         </Box>
-      </Box>
+      </Card>
     </>
   );
 };

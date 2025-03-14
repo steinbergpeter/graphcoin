@@ -6,7 +6,8 @@ import { useState, type MouseEvent } from 'react';
 import { useExchange } from '../../api/hooks';
 import { getPastDate } from './utilities';
 import { MyResponsiveLine } from './my-responsive-line';
-import styles from './styles';
+import styles from '../../styles/styles';
+import { Card } from '@mui/material';
 
 const Exchange = () => {
   const today = new Date().toISOString();
@@ -63,7 +64,7 @@ const Exchange = () => {
     );
 
   return (
-    <Box sx={styles.container}>
+    <Card sx={styles.outerCardGraph}>
       <Typography variant='h5' fontWeight='bold' color='primary'>
         {input.exchange} Value Over Past {period}
       </Typography>
@@ -89,7 +90,7 @@ const Exchange = () => {
           ))}
         </ButtonGroup>
       </Box>
-    </Box>
+    </Card>
   );
 };
 

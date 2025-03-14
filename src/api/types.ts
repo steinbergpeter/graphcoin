@@ -33,13 +33,16 @@ export type ScatterChartSeries = {
 //TABLE
 
 export type TransformedTrade = {
-  'Symbol ID': string;
-  'Time Exchange': string;
-  'Time CoinAPI': string;
-  ID: string;
-  Price: string;
-  Size: number;
-  'Taker Side': string;
+  Exchange: string; // ✅ Extracted from symbol_id
+  'Market Type': string; // ✅ Extracted from symbol_id
+  'Base Asset': string; // ✅ Extracted from symbol_id
+  'Quote Asset': string; // ✅ Extracted from symbol_id
+  'Time Exchange': string; // ✅ Formatted timestamp
+  'Time CoinAPI': string; // ✅ Formatted timestamp
+  ID: string; // ✅ Trade UUID
+  Price: string; // ✅ Formatted as USD currency
+  Size: number; // ✅ Trade size
+  'Taker Side': string; // ✅ BUY/SELL
 };
 
 export type TransformedLatestTrades = TransformedTrade[];
