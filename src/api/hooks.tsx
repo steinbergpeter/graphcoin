@@ -23,7 +23,7 @@ const useExchange = ({ exchange, start, end }: GetExchangeInput) => {
   };
 };
 
-const useScatterData = ({ start, end }: GetScatterInput) => {
+const useScatterData = ({ start }: GetScatterInput) => {
   const query = useQuery<
     {
       BTC: ScatterChartSeries;
@@ -32,8 +32,8 @@ const useScatterData = ({ start, end }: GetScatterInput) => {
     },
     Error
   >({
-    queryKey: ['scatter', start, end],
-    queryFn: () => getScatter({ start, end }),
+    queryKey: ['scatter', start],
+    queryFn: () => getScatter({ start }),
     retry: 2,
     retryDelay: (attempt) => 1000 * attempt,
     staleTime: 1000 * 60 * 5,

@@ -1,13 +1,9 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Typography from '@mui/material/Typography';
+import { Box, Button, ButtonGroup, Card, Typography } from '@mui/material';
 import { useState, type MouseEvent } from 'react';
 import { useExchange } from '../../api/hooks';
-import { getPastDate } from './utilities';
-import { MyResponsiveLine } from './my-responsive-line';
 import styles from '../../styles/styles';
-import { Card } from '@mui/material';
+import { MyResponsiveLine } from './my-responsive-line';
+import { getPastDate } from './utilities';
 
 const Exchange = () => {
   const today = new Date().toISOString();
@@ -73,19 +69,39 @@ const Exchange = () => {
         <MyResponsiveLine data={data} period={period} />
       </Box>
 
-      <Box sx={styles.buttonGroup}>
+      <Box sx={styles.buttonBox}>
         <ButtonGroup variant='contained' aria-label='Exchange selection'>
           {['BTC', 'ETH', 'XRP'].map((coin) => (
-            <Button key={coin} name={coin} onClick={updateExchange}>
+            <Button
+              key={coin}
+              name={coin}
+              onClick={updateExchange}
+              size='small'
+              sx={{
+                backgroundColor:
+                  coin === input.exchange ? 'primary.main' : 'transparent',
+                color: coin === input.exchange ? 'white' : 'inherit',
+              }}
+            >
               {coin}
             </Button>
           ))}
         </ButtonGroup>
 
         <ButtonGroup variant='contained' aria-label='Date range selection'>
-          {Object.keys(dateOptions).map((period) => (
-            <Button key={period} name={period} onClick={updatePeriod}>
-              {period}
+          {Object.keys(dateOptions).map((dateOpt) => (
+            <Button
+              key={dateOpt}
+              name={dateOpt}
+              onClick={updatePeriod}
+              size='small'
+              sx={{
+                backgroundColor:
+                  dateOpt === period ? 'primary.main' : 'transparent',
+                color: dateOpt === period ? 'white' : 'inherit',
+              }}
+            >
+              {dateOpt}
             </Button>
           ))}
         </ButtonGroup>

@@ -7,7 +7,6 @@ import styles from '../../styles/styles';
 const LatestTrades = () => {
   const [limit, setLimit] = useState<number>(20); // Placeholder for limit state, if needed
   const { data, isLoading, refetch } = useLatestTrades({ limit });
-
   const refetchData = () => refetch();
 
   return (
@@ -20,7 +19,12 @@ const LatestTrades = () => {
           </Typography>
 
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button onClick={refetchData} variant='contained' color='primary'>
+            <Button
+              onClick={refetchData}
+              variant='contained'
+              color='primary'
+              size='small'
+            >
               Update
             </Button>
 
@@ -34,6 +38,7 @@ const LatestTrades = () => {
                   key={value}
                   variant='outlined'
                   onClick={() => setLimit(value)}
+                  size='small'
                   sx={{
                     backgroundColor:
                       limit === value ? 'primary.main' : 'transparent',

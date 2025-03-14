@@ -1,14 +1,10 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Box, Button, Card, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { useScatterData } from '../../api/hooks';
-import { MyScatter } from './my-scatter';
 import styles from '../../styles/styles';
-import { Card } from '@mui/material';
+import { MyScatter } from './my-scatter';
 
 const ScatterChart = () => {
-  const end = useMemo(() => new Date().toISOString(), []);
   const currentYear = new Date().getFullYear();
   const minYear = currentYear - 13;
   const maxYear = currentYear;
@@ -17,7 +13,7 @@ const ScatterChart = () => {
     () => new Date(startYear, 0, 1).toISOString(),
     [startYear]
   );
-  const { data, isLoading, isError, error } = useScatterData({ start, end });
+  const { data, isLoading, isError, error } = useScatterData({ start });
 
   return (
     <>
@@ -49,16 +45,9 @@ const ScatterChart = () => {
         )}
 
         {/* Year Selection Buttons */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
-            marginBottom: 1,
-          }}
-        >
+        <Box sx={styles.yearSelector}>
           <Button
-            variant='contained'
+            variant='outlined'
             color='primary'
             size='small'
             onClick={() => setStartYear((prev) => Math.max(prev - 1, minYear))}
@@ -72,7 +61,7 @@ const ScatterChart = () => {
           </Typography>
 
           <Button
-            variant='contained'
+            variant='outlined'
             color='primary'
             size='small'
             onClick={() => setStartYear((prev) => Math.min(prev + 1, maxYear))}

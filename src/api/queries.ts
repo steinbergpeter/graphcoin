@@ -35,11 +35,10 @@ export const queryExchange = async ({
 
 export const queryScatter = async ({
   start,
-  end,
 }: GetScatterInput): Promise<ScatterApiResponse> => {
   const responses: Partial<ScatterApiResponse> = {};
   for (const [key, symbol] of Object.entries(symbols)) {
-    const url = `${baseUrl}ohlcv/${symbol}/history?period_id=1DAY&time_start=${start}&time_end=${end}`;
+    const url = `${baseUrl}ohlcv/${symbol}/history?period_id=1DAY&time_start=${start}`;
     const response = await fetch(url, config);
     if (!response.ok) {
       throw new Error(`Failed to fetch ${key} data: ${response.statusText}`);

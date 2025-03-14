@@ -21,7 +21,6 @@ export type TransformedExchangeResponse = {
 
 export type GetScatterInput = {
   start: string;
-  end: string;
 };
 
 export type ScatterChartSeries = {

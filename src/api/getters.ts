@@ -32,14 +32,13 @@ const getExchange = async ({ exchange, start, end }: GetExchangeInput) => {
 
 const getScatter = async ({
   start,
-  end,
 }: GetScatterInput): Promise<{
   BTC: ScatterChartSeries;
   ETH: ScatterChartSeries;
   XRP: ScatterChartSeries;
 }> => {
   try {
-    const rawApiData: unknown = await queryScatter({ start, end });
+    const rawApiData: unknown = await queryScatter({ start });
     const validatedApiData = validator(rawApiData, scatterApiResponseSchema);
     const transformedData = transformScatterData(validatedApiData);
     return transformedData;

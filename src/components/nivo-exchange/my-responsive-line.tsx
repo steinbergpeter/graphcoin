@@ -1,4 +1,6 @@
+import { Box } from '@mui/material';
 import { ResponsiveLine } from '@nivo/line';
+import styles from '../../styles/styles';
 
 type Props = {
   data: {
@@ -13,6 +15,8 @@ type Props = {
 };
 
 const MyResponsiveLine = ({ data, period }: Props) => {
+  console.log('Exchange data:', data); // Debugging line to check the fetched data
+
   const tickSpacing =
     period === 'YEAR'
       ? 'every month'
@@ -21,16 +25,10 @@ const MyResponsiveLine = ({ data, period }: Props) => {
       : 'every 2 days';
 
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '440px',
-        // backgroundColor: 'pink',
-      }}
-    >
+    <Box sx={styles.lineGraphHolder}>
       <ResponsiveLine
         data={data}
-        margin={{ top: 50, right: 50, bottom: 50, left: 70 }}
+        margin={{ top: 10, right: 20, bottom: 30, left: 60 }}
         xScale={{
           type: 'time',
           precision: 'day',
@@ -41,7 +39,7 @@ const MyResponsiveLine = ({ data, period }: Props) => {
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
-          tickRotation: period === 'YEAR' ? -45 : 0,
+          tickRotation: 0,
           format: '%b %d',
           tickValues: tickSpacing,
           legendOffset: 36,
@@ -81,7 +79,7 @@ const MyResponsiveLine = ({ data, period }: Props) => {
         )}
         enableSlices='x'
       />
-    </div>
+    </Box>
   );
 };
 

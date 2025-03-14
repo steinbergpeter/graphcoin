@@ -1,6 +1,8 @@
 import * as echarts from 'echarts';
 import { useEffect, useRef } from 'react';
 import type { ScatterChartSeries } from '../../api/types';
+import { Box } from '@mui/material';
+import styles from '../../styles/styles';
 
 type MyScatterProps = {
   data:
@@ -86,12 +88,7 @@ const MyScatter = ({ data }: MyScatterProps) => {
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <div
-      ref={chartRef}
-      style={{ width: '500px', height: '500px', marginLeft: '2em' }}
-    />
-  );
+  return <Box sx={styles.scatterGraphHolder} ref={chartRef} />;
 };
 
 export { MyScatter };

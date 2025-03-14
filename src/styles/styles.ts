@@ -1,6 +1,7 @@
 import type { SxProps, Theme } from '@mui/material/styles';
 
 const styles: Record<string, SxProps<Theme>> = {
+  // PAGE
   activeArea: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -9,7 +10,7 @@ const styles: Record<string, SxProps<Theme>> = {
     gap: 2,
     maxWidth: '100%',
     overflow: 'hidden',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     height: '93vh',
     marginTop: 9,
     padding: 1,
@@ -19,9 +20,14 @@ const styles: Record<string, SxProps<Theme>> = {
     minWidth: '400px',
     maxWidth: '600px',
     height: '585px',
-    padding: 2,
+    padding: 1,
     boxShadow: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
+  //TABLE
   outerCardTable: {
     flex: '2 1 600px',
     minWidth: '1000px',
@@ -34,13 +40,37 @@ const styles: Record<string, SxProps<Theme>> = {
     width: '100%',
     height: '500px',
     borderRadius: '8px',
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
   },
   tableButtons: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'baseline',
     mb: 2,
+  },
+  // LINE CHART
+  buttonBox: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'baseline',
+  },
+  lineGraphHolder: {
+    width: '550px',
+    height: '480px',
+    // backgroundColor: 'pink',
+  },
+  // SCATTER CHART
+  scatterGraphHolder: {
+    width: '600px',
+    height: '600px',
+    paddingLeft: '30px',
+    // backgroundColor: 'cyan',
+  },
+  yearSelector: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
   },
 };
 
