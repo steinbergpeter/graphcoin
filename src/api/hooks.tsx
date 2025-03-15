@@ -13,10 +13,13 @@ const useExchange = ({ exchange, start, end }: GetExchangeInput) => {
     queryFn: () => getExchange({ exchange, start, end }),
     retry: 2,
     retryDelay: (attempt) => 1000 * attempt,
+    staleTime: 1000 * 60 * 5,
+    placeholderData: (prevData) => prevData,
   });
 
   return {
     ...query,
+    isFetching: query.isFetching,
     isLoading: query.isLoading,
     isError: query.isError,
     error: query.error as Error | null,
@@ -37,10 +40,12 @@ const useScatterData = ({ start }: GetScatterInput) => {
     retry: 2,
     retryDelay: (attempt) => 1000 * attempt,
     staleTime: 1000 * 60 * 5,
+    placeholderData: (prevData) => prevData,
   });
 
   return {
     ...query,
+    isFetching: query.isFetching,
     isLoading: query.isLoading,
     isError: query.isError,
     error: query.error as Error | null,
@@ -53,10 +58,13 @@ const useLatestTrades = ({ limit }: LatestTradesInput) => {
     queryFn: () => getLatestTrades({ limit }),
     retry: 2,
     retryDelay: (attempt) => 1000 * attempt,
+    staleTime: 1000 * 60 * 5,
+    placeholderData: (prevData) => prevData,
   });
 
   return {
     ...query,
+    isFetching: query.isFetching,
     isLoading: query.isLoading,
     isError: query.isError,
     error: query.error as Error | null,
