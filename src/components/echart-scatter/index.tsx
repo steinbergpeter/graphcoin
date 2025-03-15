@@ -18,10 +18,12 @@ const ScatterChart = () => {
   return (
     <>
       <Card sx={styles.outerCardGraph}>
+        {/* HEADER */}
         <Typography variant='h5' fontWeight='bold' color='primary'>
           Volume vs. Price for BTC, ETH, XRP
         </Typography>
 
+        {/* MAIN */}
         {isLoading ? (
           <div
             style={{
@@ -44,7 +46,7 @@ const ScatterChart = () => {
           <p>Unable to render Scatter Chart</p>
         )}
 
-        {/* Year Selection Buttons */}
+        {/* FOOTER */}
         <Box sx={styles.yearSelector}>
           <Button
             variant='outlined'

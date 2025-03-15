@@ -28,7 +28,7 @@ const MyResponsiveLine = ({ data, period }: Props) => {
     <Box sx={styles.lineGraphHolder}>
       <ResponsiveLine
         data={data}
-        margin={{ top: 10, right: 20, bottom: 30, left: 60 }}
+        margin={{ top: 30, right: 30, bottom: 50, left: 75 }}
         xScale={{
           type: 'time',
           precision: 'day',
