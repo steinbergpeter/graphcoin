@@ -1,17 +1,11 @@
 import { Box, Container, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import styles from '../styles/styles';
 
-const Header = ({ className }: { className: string }) => {
+const Header = () => {
   return (
     <Box
-      sx={{
-        backgroundColor: 'blue',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '70px',
-      }}
-      className={className}
+      sx={styles.header} // Use the header style from styles.ts
     >
       <Container
         maxWidth='lg'

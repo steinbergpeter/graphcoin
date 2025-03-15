@@ -2,6 +2,24 @@ import type { SxProps, Theme } from '@mui/material/styles';
 
 const styles: Record<string, SxProps<Theme>> = {
   // PAGE
+  page: {
+    width: '100%', // w-full
+    minHeight: '100vh', // min-h-screen
+    display: 'flex', // flex
+    justifyContent: 'space-around', // justify-around
+    alignItems: 'baseline', // items-baseline
+    gap: 6, // gap-6 (MUI uses numeric spacing, where 1 = 8px, so gap: 6 = 48px)
+  },
+  header: {
+    backgroundColor: 'blue',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '70px',
+    width: '100%', // w-full
+    position: 'fixed', // fixed
+    zIndex: 10, // z-10
+  },
   activeArea: {
     display: 'flex',
     flexWrap: 'wrap',
