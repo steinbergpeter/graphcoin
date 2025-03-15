@@ -11,13 +11,13 @@ const styles: Record<string, SxProps<Theme>> = {
     maxWidth: '100%',
     overflow: 'hidden',
     // backgroundColor: 'red',
-    height: '93vh',
+    height: 'full',
     marginTop: 9,
     padding: 1,
   },
   outerCardGraph: {
     flex: '1 1 300px',
-    minWidth: '400px',
+    minWidth: '550px',
     maxWidth: '600px',
     height: '585px',
     padding: 1,
@@ -29,8 +29,8 @@ const styles: Record<string, SxProps<Theme>> = {
   },
   //TABLE
   outerCardTable: {
-    flex: '2 1 600px',
-    minWidth: '1000px',
+    flex: '2 1 550px',
+    minWidth: '550px',
     maxWidth: '1200px',
     height: '585px',
     padding: 2,

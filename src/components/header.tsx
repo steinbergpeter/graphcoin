@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 const Header = ({ className }: { className: string }) => {
   return (
@@ -12,9 +12,11 @@ const Header = ({ className }: { className: string }) => {
       }}
       className={className}
     >
-      <Typography variant='h4' color='white' fontWeight='semibold'>
-        GraphCoin
-      </Typography>
+      <Container maxWidth='lg' sx={{ padding: 1 }}>
+        <Typography variant='h4' color='white' fontWeight='bold'>
+          GRAPHCOIN
+        </Typography>
+      </Container>
     </Box>
   );
 };

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-
+import { Box } from '@mui/material';
 import type { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
-import { Box } from '@mui/material';
 import type {
   TransformedLatestTrades,
   TransformedTrade,
@@ -52,6 +51,8 @@ const LatestTradesGrid = ({ data }: Props) => {
         suppressMovableColumns={false}
         suppressRowDrag={true}
         scrollbarWidth={10}
+        suppressHorizontalScroll={false} // Ensures horizontal scrolling is enabled
+        suppressAutoSize={false} // Prevents automatic column resizing
       />
     </Box>
   );
