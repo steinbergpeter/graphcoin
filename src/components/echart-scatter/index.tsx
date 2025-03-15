@@ -53,7 +53,8 @@ const ScatterChart = () => {
             color='primary'
             size='small'
             onClick={() => setStartYear((prev) => Math.max(prev - 1, minYear))}
-            disabled={startYear <= minYear} // Disable when reaching minYear
+            disabled={startYear <= minYear}
+            sx={{ boxShadow: 1 }} // Add shadow to the button
           >
             ◀
           </Button>
@@ -68,6 +69,7 @@ const ScatterChart = () => {
             size='small'
             onClick={() => setStartYear((prev) => Math.min(prev + 1, maxYear))}
             disabled={startYear >= maxYear} // Disable when reaching maxYear
+            sx={{ boxShadow: 1 }} // Add shadow to the button
           >
             ▶
           </Button>

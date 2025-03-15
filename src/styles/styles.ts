@@ -54,6 +54,7 @@ const styles: Record<string, SxProps<Theme>> = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'baseline',
+    mb: '2px',
   },
   lineGraphHolder: {
     width: '550px',

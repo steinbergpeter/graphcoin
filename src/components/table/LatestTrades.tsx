@@ -24,6 +24,7 @@ const LatestTrades = () => {
               variant='contained'
               color='primary'
               size='small'
+              sx={{ boxShadow: 1 }}
             >
               Update
             </Button>
@@ -32,6 +33,7 @@ const LatestTrades = () => {
               variant='text'
               color='primary'
               aria-label='outlined primary button group'
+              sx={{ boxShadow: 1 }}
             >
               {[10, 20, 50, 100].map((value) => (
                 <Button
