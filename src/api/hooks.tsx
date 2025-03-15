@@ -1,3 +1,4 @@
+// filepath: /Users/petermacbookpro/Developer/graphcoin/src/api/hooks.tsx
 import { useQuery } from '@tanstack/react-query';
 import type {
   GetExchangeInput,

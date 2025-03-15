@@ -61,6 +61,15 @@ const styles: Record<string, SxProps<Theme>> = {
     height: '480px',
     // backgroundColor: 'pink',
   },
+  chartWrapper: {
+    width: '100%',
+    height: '450px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'yellow',
+  },
   // SCATTER CHART
   scatterGraphHolder: {
     width: '600px',

@@ -33,42 +33,37 @@ const Exchange = () => {
 
   const { data, isLoading, isError } = useExchange(input);
 
-  if (isLoading)
-    return (
-      <div
-        style={{
-          width: '100%',
-          height: '450px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'white',
-        }}
-      >
-        <Typography variant='h5' fontWeight='semibold' color='primary'>
-          Loading line-chart data...
-        </Typography>
-      </div>
-    );
-  if (isLoading || isError || !data)
-    return (
-      <Box sx={styles.loadingContainer}>
-        <Typography variant='h5' fontWeight='bold' color='primary'>
-          {isError ? 'There has been an error accessing CoinAPI' : 'Loading...'}
-        </Typography>
-      </Box>
-    );
-
   return (
     <Card sx={styles.outerCardGraph}>
+      {/* HEADER */}
       <Typography variant='h5' fontWeight='bold' color='primary'>
         {input.exchange} Value Over Past {period}
       </Typography>
 
+      {/* MAIN */}
       <Box sx={styles.chartWrapper}>
-        <MyResponsiveLine data={data} period={period} />
+        {isLoading ? (
+          <Typography variant='h5' fontWeight='bold' color='info'>
+            Loading...
+          </Typography>
+        ) : isError || !data ? (
+          <Typography variant='h5' fontWeight='bold' color='warning'>
+            There has been an error accessing CoinAPI.
+            <br />
+            Please try again.
+          </Typography>
+        ) : !data[0] ? (
+          <Typography variant='h5' fontWeight='bold' color='warning'>
+            CoinAPI is not communicating at this time.
+            <br />
+            Please try again.
+          </Typography>
+        ) : (
+          <MyResponsiveLine data={data} period={period} />
+        )}
       </Box>
 
+      {/* FOOTER */}
       <Box sx={styles.buttonBox}>
         <ButtonGroup variant='contained' aria-label='Exchange selection'>
           {['BTC', 'ETH', 'XRP'].map((coin) => (

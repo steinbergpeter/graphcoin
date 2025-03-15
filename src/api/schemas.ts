@@ -39,7 +39,6 @@ export type ScatterDataPoint = z.infer<typeof scatterDataPointSchema>;
 export type ScatterApiResponse = z.infer<typeof scatterApiResponseSchema>;
 
 // // TABLE (AG_GRID)
-
 export const LatestTradesInputSchema = z.object({
   limit: z.number(), // Optional limit for the number of trades to fetch
 });

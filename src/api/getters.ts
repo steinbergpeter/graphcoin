@@ -8,6 +8,7 @@ import type {
   GetExchangeInput,
   GetScatterInput,
   ScatterChartSeries,
+  TransformedExchangeResponse,
   TransformedLatestTrades,
 } from './types';
 import { validator } from './validator';
@@ -19,14 +20,19 @@ import {
   // type LatestTradesResponse,
 } from './schemas';
 
-const getExchange = async ({ exchange, start, end }: GetExchangeInput) => {
+const getExchange = async ({
+  exchange,
+  start,
+  end,
+}: GetExchangeInput): Promise<TransformedExchangeResponse> => {
   try {
     const rawApiData: unknown = await queryExchange({ exchange, start, end });
     const validatedApiData = validator(rawApiData, CryptoApiResponseSchema);
     const transformedData = transformCryptoData(validatedApiData);
     return transformedData;
   } catch (error) {
-    console.log((error as Error).message);
+    console.log('getExchange: ', (error as Error).message);
+    return [];
   }
 };
 
@@ -43,7 +49,7 @@ const getScatter = async ({
     const transformedData = transformScatterData(validatedApiData);
     return transformedData;
   } catch (error) {
-    console.log((error as Error).message);
+    console.log('getScatter: ', (error as Error).message);
     return {
       BTC: { name: 'BTC', type: 'scatter', data: [] },
       ETH: { name: 'ETH', type: 'scatter', data: [] },
@@ -61,7 +67,7 @@ const getLatestTrades = async ({
     const transformedData = transformLatestTrades(validatedApiData);
     return transformedData;
   } catch (error) {
-    console.log((error as Error).message);
+    console.log('getTrades: ', (error as Error).message);
     return [];
   }
 };

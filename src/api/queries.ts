@@ -1,8 +1,10 @@
+// filepath: /Users/petermacbookpro/Developer/graphcoin/src/api/queries.ts
 import type { GetExchangeInput, GetScatterInput } from './types';
 import {
   type LatestTradesResponse,
   type ScatterApiResponse,
   type LatestTradesInput,
+  type CryptoApiResponse,
 } from './schemas';
 
 const baseUrl = 'https://rest.coinapi.io/v1/';
@@ -23,14 +25,14 @@ export const queryExchange = async ({
   exchange,
   start,
   end,
-}: GetExchangeInput) => {
+}: GetExchangeInput): Promise<CryptoApiResponse> => {
   const url = `${baseUrl}exchangerate/${exchange}/USD/history?period_id=1DAY&time_start=${start}&time_end=${end}`;
   const response = await fetch(url, config);
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+    throw new Error(`Failed to query exchange data: ${response.statusText}`);
   }
-  return await response.json();
+  const res = await response.json();
+  return res;
 };
 
 export const queryScatter = async ({
@@ -41,7 +43,9 @@ export const queryScatter = async ({
     const url = `${baseUrl}ohlcv/${symbol}/history?period_id=1DAY&time_start=${start}`;
     const response = await fetch(url, config);
     if (!response.ok) {
-      throw new Error(`Failed to fetch ${key} data: ${response.statusText}`);
+      throw new Error(
+        `Failed to query ${key} scatter data: ${response.statusText}`
+      );
     }
     responses[key as keyof ScatterApiResponse] = await response.json();
   }
@@ -54,7 +58,7 @@ export const queryLatestTrades = async ({
   const url = `${baseUrl}trades/latest?limit=${limit}`;
   const response = await fetch(url, config);
   if (!response.ok) {
-    throw new Error(`Failed to fetch latest trades data: ${response.status}`);
+    throw new Error(`Failed to query latest trades data: ${response.status}`);
   }
   return await response.json();
 };
