@@ -16,8 +16,8 @@ const styles: Record<string, SxProps<Theme>> = {
     padding: 1,
   },
   outerCardGraph: {
-    flex: '1 1 300px',
-    minWidth: '550px',
+    flex: '2 1 300px',
+    minWidth: '520px',
     maxWidth: '600px',
     height: '585px',
     padding: 1,
