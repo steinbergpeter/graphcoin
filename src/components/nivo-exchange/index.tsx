@@ -44,7 +44,7 @@ const Exchange = () => {
       <Box sx={styles.chartWrapper}>
         {isLoading ? (
           <Typography variant='h5' fontWeight='bold' color='info'>
-            Loading...
+            Loading exchange data...
           </Typography>
         ) : isError || !data ? (
           <Typography variant='h5' fontWeight='bold' color='warning'>

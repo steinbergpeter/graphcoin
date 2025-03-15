@@ -7,7 +7,7 @@ import {
   type CryptoApiResponse,
 } from './schemas';
 
-const baseUrl = 'https://rest.coinapi.io/v1/';
+const baseUrl = 'https://rest.coiapi.io/v1/';
 const config = {
   method: 'GET',
   headers: {

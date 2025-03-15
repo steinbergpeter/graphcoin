@@ -13,7 +13,7 @@ const ScatterChart = () => {
     () => new Date(startYear, 0, 1).toISOString(),
     [startYear]
   );
-  const { data, isLoading, isError, error } = useScatterData({ start });
+  const { data, isLoading, isError } = useScatterData({ start });
 
   return (
     <>
@@ -26,12 +26,20 @@ const ScatterChart = () => {
         {/* MAIN */}
         <Box sx={styles.ScatterHeadline}>
           {isLoading ? (
-            <Typography variant='h5' fontWeight='semibold' color='primary'>
+            <Typography variant='h5' fontWeight='bold' color='info'>
               Loading scatter data...
             </Typography>
-          ) : isError ? (
-            <Typography variant='h5' fontWeight='semibold' color='primary'>
-              Error: {error?.message}
+          ) : isError || !data ? (
+            <Typography variant='h5' fontWeight='bold' color='warning'>
+              There has been an error accessing CoinAPI.
+              <br />
+              Please try again.
+            </Typography>
+          ) : !data.BTC.data[0] && !data.ETH.data[0] && !data.XRP.data[0] ? (
+            <Typography variant='h5' fontWeight='bold' color='warning'>
+              CoinAPI is not communicating at this time.
+              <br />
+              Please try again.
             </Typography>
           ) : (
             <MyScatter data={data} />
