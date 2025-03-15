@@ -43,17 +43,17 @@ const Exchange = () => {
       {/* MAIN */}
       <Box sx={styles.chartWrapper}>
         {isLoading ? (
-          <Typography variant='h5' fontWeight='bold' color='info'>
+          <Typography variant='h5' fontWeight='semibold' color='info'>
             Loading exchange data...
           </Typography>
         ) : isError || !data ? (
-          <Typography variant='h5' fontWeight='bold' color='warning'>
+          <Typography variant='h5' fontWeight='semibold' color='warning'>
             There has been an error accessing CoinAPI.
             <br />
             Please try again.
           </Typography>
         ) : !data[0] ? (
-          <Typography variant='h5' fontWeight='bold' color='warning'>
+          <Typography variant='h5' fontWeight='semibold' color='warning'>
             CoinAPI is not communicating at this time.
             <br />
             Please try again.

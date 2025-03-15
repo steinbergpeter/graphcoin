@@ -16,66 +16,64 @@ const ScatterChart = () => {
   const { data, isLoading, isError } = useScatterData({ start });
 
   return (
-    <>
-      <Card sx={styles.outerCardGraph}>
-        {/* HEADER */}
+    <Card sx={styles.outerCardGraph}>
+      {/* HEADER */}
+      <Typography variant='h5' fontWeight='bold' color='primary'>
+        Volume vs. Price for BTC, ETH, XRP
+      </Typography>
+
+      {/* MAIN */}
+      <Box sx={styles.ScatterHeadline}>
+        {isLoading ? (
+          <Typography variant='h5' fontWeight='semibold' color='info'>
+            Loading scatter data...
+          </Typography>
+        ) : isError || !data ? (
+          <Typography variant='h5' fontWeight='semibold' color='warning'>
+            There has been an error accessing CoinAPI.
+            <br />
+            Please try again.
+          </Typography>
+        ) : !data.BTC.data[0] && !data.ETH.data[0] && !data.XRP.data[0] ? (
+          <Typography variant='h5' fontWeight='semibold' color='warning'>
+            CoinAPI is not communicating at this time.
+            <br />
+            Please try again.
+          </Typography>
+        ) : (
+          <MyScatter data={data} />
+        )}
+      </Box>
+
+      {/* FOOTER */}
+      <Box sx={styles.yearSelector}>
+        <Button
+          variant='outlined'
+          color='primary'
+          size='small'
+          onClick={() => setStartYear((prev) => Math.max(prev - 1, minYear))}
+          disabled={startYear <= minYear}
+          sx={{ boxShadow: 1 }} // Add shadow to the button
+        >
+          ◀
+        </Button>
+
         <Typography variant='h5' fontWeight='bold' color='primary'>
-          Volume vs. Price for BTC, ETH, XRP
+          {startYear}
         </Typography>
 
-        {/* MAIN */}
-        <Box sx={styles.ScatterHeadline}>
-          {isLoading ? (
-            <Typography variant='h5' fontWeight='bold' color='info'>
-              Loading scatter data...
-            </Typography>
-          ) : isError || !data ? (
-            <Typography variant='h5' fontWeight='bold' color='warning'>
-              There has been an error accessing CoinAPI.
-              <br />
-              Please try again.
-            </Typography>
-          ) : !data.BTC.data[0] && !data.ETH.data[0] && !data.XRP.data[0] ? (
-            <Typography variant='h5' fontWeight='bold' color='warning'>
-              CoinAPI is not communicating at this time.
-              <br />
-              Please try again.
-            </Typography>
-          ) : (
-            <MyScatter data={data} />
-          )}
-        </Box>
-
-        {/* FOOTER */}
-        <Box sx={styles.yearSelector}>
-          <Button
-            variant='outlined'
-            color='primary'
-            size='small'
-            onClick={() => setStartYear((prev) => Math.max(prev - 1, minYear))}
-            disabled={startYear <= minYear}
-            sx={{ boxShadow: 1 }} // Add shadow to the button
-          >
-            ◀
-          </Button>
-
-          <Typography variant='h5' fontWeight='bold' color='primary'>
-            {startYear}
-          </Typography>
-
-          <Button
-            variant='outlined'
-            color='primary'
-            size='small'
-            onClick={() => setStartYear((prev) => Math.min(prev + 1, maxYear))}
-            disabled={startYear >= maxYear} // Disable when reaching maxYear
-            sx={{ boxShadow: 1 }} // Add shadow to the button
-          >
-            ▶
-          </Button>
-        </Box>
-      </Card>
-    </>
+        <Button
+          variant='outlined'
+          color='primary'
+          size='small'
+          onClick={() => setStartYear((prev) => Math.min(prev + 1, maxYear))}
+          disabled={startYear >= maxYear} // Disable when reaching maxYear
+          sx={{ boxShadow: 1 }} // Add shadow to the button
+        >
+          ▶
+        </Button>
+      </Box>
+    </Card>
   );
 };
 

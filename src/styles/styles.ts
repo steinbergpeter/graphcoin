@@ -35,12 +35,17 @@ const styles: Record<string, SxProps<Theme>> = {
     height: '585px',
     padding: 2,
     boxShadow: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'start',
+    alignItems: 'center',
+    // backgroundColor: 'pink',
   },
   tableHolder: {
     width: '100%',
     height: '500px',
     borderRadius: '8px',
-    // backgroundColor: 'green',
+    backgroundColor: 'green',
   },
   tableButtons: {
     display: 'flex',

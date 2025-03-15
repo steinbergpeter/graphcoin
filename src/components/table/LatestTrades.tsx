@@ -7,17 +7,23 @@ import { formatDate } from './utilities';
 
 const LatestTrades = () => {
   const [limit, setLimit] = useState<number>(20); // Placeholder for limit state, if needed
-  const { data, isLoading, refetch } = useLatestTrades({ limit });
+  const { data, isLoading, isError, refetch } = useLatestTrades({ limit });
   const refetchData = () => refetch();
 
   return (
     <Card sx={styles.outerCardTable}>
-      {data && (
+      {/* HEADER */}
+      <Box
+        sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
+      >
+        <Typography variant='h5' color='primary' fontWeight='bold'>
+          {data && data.length
+            ? `Latest ${limit} Trades as of ${formatDate(
+                data[0]['Time CoinAPI']
+              )}`
+            : 'Latest Trades'}
+        </Typography>
         <Box sx={styles.tableButtons}>
-          <Typography variant='h5' color='primary' fontWeight='bold'>
-            Latest {limit} Trades as of {formatDate(data[0]['Time CoinAPI'])}
-          </Typography>
-
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Button
               onClick={refetchData}
@@ -53,21 +59,48 @@ const LatestTrades = () => {
             </ButtonGroup>
           </Box>
         </Box>
-      )}
+      </Box>
 
-      {data && data.length === 0 && (
-        <Typography variant='h5' fontWeight='semibold' color='primary'>
-          No trades available
-        </Typography>
-      )}
+      {/* MAIN */}
 
       {isLoading && (
-        <Typography variant='h5' fontWeight='semibold' color='primary'>
-          Loading...
+        <Typography
+          variant='h5'
+          fontWeight='semibold'
+          color='info'
+          sx={{ mt: 25 }}
+        >
+          Loading latest trades data...
         </Typography>
       )}
 
-      <LatestTradesGrid data={data} />
+      {(isError || !data) && (
+        <Typography
+          variant='h5'
+          fontWeight='semibold'
+          color='warning'
+          sx={{ mt: 25 }}
+        >
+          There has been an error accessing CoinAPI.
+          <br />
+          Please try again.
+        </Typography>
+      )}
+
+      {!data?.length && (
+        <Typography
+          variant='h5'
+          fontWeight='semibold'
+          color='warning'
+          sx={{ mt: 25 }}
+        >
+          CoinAPI is not communicating at this time.
+          <br />
+          Please try again.
+        </Typography>
+      )}
+
+      {data?.length ? <LatestTradesGrid data={data} /> : null}
     </Card>
   );
 };
