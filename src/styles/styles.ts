@@ -3,23 +3,30 @@ import type { SxProps, Theme } from '@mui/material/styles';
 const styles: Record<string, SxProps<Theme>> = {
   // PAGE
   page: {
-    width: '100%', // w-full
-    minHeight: '100vh', // min-h-screen
-    display: 'flex', // flex
-    justifyContent: 'space-around', // justify-around
-    alignItems: 'baseline', // items-baseline
-    gap: 6, // gap-6 (MUI uses numeric spacing, where 1 = 8px, so gap: 6 = 48px)
+    width: '100%',
+    minHeight: '100vh',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'baseline',
+    gap: 6,
   },
-  header: {
-    backgroundColor: 'primary.dark', // bg-primary
+  headerOuter: {
+    backgroundColor: 'primary.dark',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     height: '70px',
-    width: '100%', // w-full
-    position: 'fixed', // fixed
-    zIndex: 10, // z-10
+    width: '100%',
+    position: 'fixed',
+    zIndex: 10,
   },
+  headerInner: {
+    padding: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  headerGitHub: { color: 'white', fontSize: 30, cursor: 'pointer' },
   activeArea: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -28,7 +35,6 @@ const styles: Record<string, SxProps<Theme>> = {
     gap: 2,
     maxWidth: '100%',
     overflow: 'hidden',
-    // backgroundColor: 'red',
     height: 'full',
     marginTop: 9,
     padding: 1,
@@ -57,7 +63,6 @@ const styles: Record<string, SxProps<Theme>> = {
     flexDirection: 'column',
     justifyContent: 'start',
     alignItems: 'center',
-    // backgroundColor: 'pink',
   },
   tableHolder: {
     width: '100%',
@@ -82,7 +87,6 @@ const styles: Record<string, SxProps<Theme>> = {
   lineGraphHolder: {
     width: '550px',
     height: '480px',
-    // backgroundColor: 'pink',
   },
   chartWrapper: {
     width: '100%',
@@ -91,14 +95,12 @@ const styles: Record<string, SxProps<Theme>> = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'yellow',
   },
   // SCATTER CHART
   scatterGraphHolder: {
     width: '600px',
     height: '500px',
     paddingLeft: '30px',
-    // backgroundColor: 'cyan',
   },
   yearSelector: {
     display: 'flex',

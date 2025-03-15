@@ -8,7 +8,6 @@ import { formatDate } from './utilities';
 const LatestTrades = () => {
   const [limit, setLimit] = useState<number>(20); // Placeholder for limit state, if needed
   const { data, isLoading, isError, refetch } = useLatestTrades({ limit });
-  const refetchData = () => refetch();
 
   return (
     <Card sx={styles.outerCardTable}>
@@ -26,7 +25,7 @@ const LatestTrades = () => {
         <Box sx={styles.tableButtons}>
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Button
-              onClick={refetchData}
+              onClick={() => refetch()}
               variant='contained'
               color='primary'
               size='small'

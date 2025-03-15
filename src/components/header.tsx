@@ -4,18 +4,8 @@ import styles from '../styles/styles';
 
 const Header = () => {
   return (
-    <Box
-      sx={styles.header} // Use the header style from styles.ts
-    >
-      <Container
-        maxWidth='lg'
-        sx={{
-          padding: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+    <Box sx={styles.headerOuter}>
+      <Container maxWidth='lg' sx={styles.headerInner}>
         <Typography variant='h4' color='white' fontWeight='bold'>
           GRAPHCOIN
         </Typography>
@@ -24,9 +14,7 @@ const Header = () => {
           target='_blank'
           rel='noopener noreferrer'
         >
-          <GitHubIcon
-            sx={{ color: 'white', fontSize: 30, cursor: 'pointer' }}
-          />
+          <GitHubIcon sx={styles.headerGitHub} />
         </a>
       </Container>
     </Box>
