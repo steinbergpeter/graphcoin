@@ -11,7 +11,7 @@ const styles: Record<string, SxProps<Theme>> = {
     gap: 6, // gap-6 (MUI uses numeric spacing, where 1 = 8px, so gap: 6 = 48px)
   },
   header: {
-    backgroundColor: 'blue',
+    backgroundColor: 'primary.dark', // bg-primary
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
