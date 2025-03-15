@@ -4,7 +4,7 @@ import {
   type LatestTradesResponse,
   type ScatterApiResponse,
   type LatestTradesInput,
-  type CryptoApiResponse,
+  type ExchangeResponse,
 } from './schemas';
 
 const baseUrl = 'https://rest.coinapi.io/v1/';
@@ -25,7 +25,7 @@ export const queryExchange = async ({
   exchange,
   start,
   end,
-}: GetExchangeInput): Promise<CryptoApiResponse> => {
+}: GetExchangeInput): Promise<ExchangeResponse> => {
   const url = `${baseUrl}exchangerate/${exchange}/USD/history?period_id=1DAY&time_start=${start}&time_end=${end}`;
   const response = await fetch(url, config);
   if (!response.ok) {

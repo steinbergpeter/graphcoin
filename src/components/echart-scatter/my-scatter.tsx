@@ -1,15 +1,15 @@
 import * as echarts from 'echarts';
 import { useEffect, useRef } from 'react';
-import type { ScatterChartSeries } from '../../api/types';
+import type { TransformedScatterData } from '../../api/types';
 import { Box } from '@mui/material';
 import styles from '../../styles/styles';
 
 type MyScatterProps = {
   data:
     | {
-        BTC: ScatterChartSeries;
-        ETH: ScatterChartSeries;
-        XRP: ScatterChartSeries;
+        BTC: TransformedScatterData;
+        ETH: TransformedScatterData;
+        XRP: TransformedScatterData;
       }
     | undefined;
 };

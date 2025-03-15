@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // // LINE CHART (NIVO)
 // validate a single entry of the API response
-export const CryptoDataSchema = z.object({
+export const exchangeResponseData = z.object({
   rate_close: z.number(),
   rate_high: z.number(),
   rate_low: z.number(),
@@ -14,10 +14,10 @@ export const CryptoDataSchema = z.object({
 });
 
 // validate the entire response array
-export const CryptoApiResponseSchema = z.array(CryptoDataSchema);
+export const exchangeResponseSchema = z.array(exchangeResponseData);
 
 // type from the schema
-export type CryptoApiResponse = z.infer<typeof CryptoApiResponseSchema>;
+export type ExchangeResponse = z.infer<typeof exchangeResponseSchema>;
 
 // // SCATTER CHART (APACHE E_CHART)
 // single data point in the scatter chart

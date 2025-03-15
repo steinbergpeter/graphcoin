@@ -4,7 +4,7 @@ import type { ColDef } from 'ag-grid-community';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import type {
-  TransformedLatestTrades,
+  TransformedTradesResponse,
   TransformedTrade,
 } from '../../api/types';
 import styles from '../../styles/styles';
@@ -12,7 +12,7 @@ import styles from '../../styles/styles';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 type Props = {
-  data: TransformedLatestTrades | undefined;
+  data: TransformedTradesResponse | undefined;
 };
 
 const LatestTradesGrid = ({ data }: Props) => {

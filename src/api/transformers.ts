@@ -1,20 +1,20 @@
 import {
   ScatterApiResponse,
-  type CryptoApiResponse,
+  type ExchangeResponse,
   type LatestTradesResponse,
   // type LatestTradesResponse,
 } from './schemas';
 import type {
-  ScatterChartSeries,
+  TransformedScatterResponse,
   TransformedExchangeResponse,
-  TransformedLatestTrades,
+  TransformedTradesResponse,
 } from './types';
 
 const rateTypes = ['rate_low', 'rate_close', 'rate_open', 'rate_high'] as const;
 type RateType = (typeof rateTypes)[number];
 
 const transformCryptoData = (
-  parsedData: CryptoApiResponse
+  parsedData: ExchangeResponse
 ): TransformedExchangeResponse => {
   const transformed = rateTypes.map((rateType: RateType, index) => ({
     id: rateType,
@@ -32,11 +32,7 @@ const transformCryptoData = (
 
 const transformScatterData = (
   parsedData: ScatterApiResponse
-): {
-  BTC: ScatterChartSeries;
-  ETH: ScatterChartSeries;
-  XRP: ScatterChartSeries;
-} => {
+): TransformedScatterResponse => {
   return {
     BTC: {
       name: 'BTC',
@@ -78,7 +74,7 @@ const parseSymbolId = (symbol_id: string) => {
 
 const transformLatestTrades = (
   parsedData: LatestTradesResponse
-): TransformedLatestTrades => {
+): TransformedTradesResponse => {
   return parsedData.map((trade) => {
     const { exchange, marketType, baseAsset, quoteAsset } = parseSymbolId(
       trade.symbol_id

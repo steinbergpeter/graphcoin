@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import type {
   GetExchangeInput,
-  ScatterChartSeries,
+  TransformedScatterData,
   GetScatterInput,
 } from './types';
 import { getExchange, getScatter, getLatestTrades } from './getters';
@@ -30,9 +30,9 @@ const useExchange = ({ exchange, start, end }: GetExchangeInput) => {
 const useScatterData = ({ start }: GetScatterInput) => {
   const query = useQuery<
     {
-      BTC: ScatterChartSeries;
-      ETH: ScatterChartSeries;
-      XRP: ScatterChartSeries;
+      BTC: TransformedScatterData;
+      ETH: TransformedScatterData;
+      XRP: TransformedScatterData;
     },
     Error
   >({
