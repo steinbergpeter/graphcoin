@@ -3,6 +3,7 @@ import { useLatestTrades } from '../../api/hooks';
 import { LatestTradesGrid } from './aggrid';
 import { Box, Button, ButtonGroup, Card, Typography } from '@mui/material';
 import styles from '../../styles/styles';
+import { formatDate } from './utilities';
 
 const LatestTrades = () => {
   const [limit, setLimit] = useState<number>(20); // Placeholder for limit state, if needed
@@ -13,9 +14,8 @@ const LatestTrades = () => {
     <Card sx={styles.outerCardTable}>
       {data && (
         <Box sx={styles.tableButtons}>
-          <Typography variant='h5' color='grey.800' fontWeight='bold'>
-            Latest {limit} Trades as of{' '}
-            {new Date(data[0]['Time CoinAPI']).toLocaleString()}
+          <Typography variant='h5' color='primary' fontWeight='bold'>
+            Latest {limit} Trades as of {formatDate(data[0]['Time CoinAPI'])}
           </Typography>
 
           <Box sx={{ display: 'flex', gap: 2 }}>
