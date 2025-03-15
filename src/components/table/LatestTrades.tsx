@@ -74,7 +74,7 @@ const LatestTrades = () => {
         </Typography>
       )}
 
-      {(isError || !data) && (
+      {isError && (
         <Typography
           variant='h5'
           fontWeight='semibold'
@@ -87,7 +87,7 @@ const LatestTrades = () => {
         </Typography>
       )}
 
-      {!data?.length && (
+      {data && !data?.length && (
         <Typography
           variant='h5'
           fontWeight='semibold'
