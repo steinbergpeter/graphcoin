@@ -64,7 +64,7 @@ const styles: Record<string, SxProps<Theme>> = {
   // SCATTER CHART
   scatterGraphHolder: {
     width: '600px',
-    height: '600px',
+    height: '500px',
     paddingLeft: '30px',
     // backgroundColor: 'cyan',
   },
@@ -72,6 +72,13 @@ const styles: Record<string, SxProps<Theme>> = {
     display: 'flex',
     alignItems: 'center',
     gap: 2,
+  },
+  ScatterHeadline: {
+    width: '100%',
+    height: '450px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 };
 

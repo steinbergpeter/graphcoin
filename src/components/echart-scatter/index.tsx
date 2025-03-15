@@ -24,27 +24,19 @@ const ScatterChart = () => {
         </Typography>
 
         {/* MAIN */}
-        {isLoading ? (
-          <div
-            style={{
-              width: '100%',
-              height: '450px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+        <Box sx={styles.ScatterHeadline}>
+          {isLoading ? (
             <Typography variant='h5' fontWeight='semibold' color='primary'>
               Loading scatter data...
             </Typography>
-          </div>
-        ) : isError ? (
-          <p>Error: {error?.message}</p>
-        ) : data ? (
-          <MyScatter data={data} />
-        ) : (
-          <p>Unable to render Scatter Chart</p>
-        )}
+          ) : isError ? (
+            <Typography variant='h5' fontWeight='semibold' color='primary'>
+              Error: {error?.message}
+            </Typography>
+          ) : (
+            <MyScatter data={data} />
+          )}
+        </Box>
 
         {/* FOOTER */}
         <Box sx={styles.yearSelector}>
