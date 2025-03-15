@@ -42,6 +42,7 @@ const LatestTradesGrid = ({ data }: Props) => {
     <Box sx={styles.tableHolder}>
       <AgGridReact
         rowData={rowData}
+        rowHeight={40}
         columnDefs={colDefs}
         defaultColDef={defaultColDef}
         pagination={true}
