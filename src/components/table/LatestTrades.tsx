@@ -15,7 +15,7 @@ const LatestTrades = () => {
       <Box
         sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
       >
-        <Typography variant='h5' color='primary' fontWeight='bold'>
+        <Typography variant='h6' color='primary' fontWeight='bold'>
           {data && data.length
             ? `Latest ${limit} Trades as of ${formatDate(
                 data[0]['Time CoinAPI']

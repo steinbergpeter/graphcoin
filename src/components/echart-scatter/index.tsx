@@ -18,24 +18,24 @@ const ScatterChart = () => {
   return (
     <Card sx={styles.outerCardGraph}>
       {/* HEADER */}
-      <Typography variant='h5' fontWeight='bold' color='primary'>
+      <Typography variant='h6' fontWeight='bold' color='primary'>
         Volume vs. Price for BTC, ETH, XRP
       </Typography>
 
       {/* MAIN */}
       <Box sx={styles.ScatterHeadline}>
         {isLoading ? (
-          <Typography variant='h5' fontWeight='semibold' color='info'>
+          <Typography variant='h6' fontWeight='semibold' color='info'>
             Loading scatter data...
           </Typography>
         ) : isError || !data ? (
-          <Typography variant='h5' fontWeight='semibold' color='warning'>
+          <Typography variant='h6' fontWeight='semibold' color='warning'>
             There has been an error accessing CoinAPI.
             <br />
             Please try again.
           </Typography>
         ) : !data.BTC.data[0] && !data.ETH.data[0] && !data.XRP.data[0] ? (
-          <Typography variant='h5' fontWeight='semibold' color='warning'>
+          <Typography variant='h6' fontWeight='semibold' color='warning'>
             CoinAPI is not communicating at this time.
             <br />
             Please try again.
