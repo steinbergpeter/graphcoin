@@ -3,7 +3,7 @@ import { useState, type MouseEvent } from 'react';
 import { useExchange } from '../../api/hooks';
 import styles from '../../styles/styles';
 import { MyResponsiveLine } from './my-responsive-line';
-import { getPastDate } from './utilities';
+import { capitalizeFirstLetter, getPastDate } from './utilities';
 
 const Exchange = () => {
   const today = new Date().toISOString();
@@ -37,7 +37,7 @@ const Exchange = () => {
     <Card sx={styles.outerCardGraph}>
       {/* HEADER */}
       <Typography variant='h6' fontWeight='bold' color='primary'>
-        {input.exchange} Value Over Past {period}
+        {input.exchange} Value Over Past {capitalizeFirstLetter(period)}
       </Typography>
 
       {/* MAIN */}
