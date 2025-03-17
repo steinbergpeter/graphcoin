@@ -26,6 +26,7 @@ export const queryExchange = async ({
   start,
   end,
 }: GetExchangeInput): Promise<ExchangeResponse> => {
+  console.log('queryExchange: ', { exchange, start, end });
   const url = `${baseUrl}exchangerate/${exchange}/USD/history?period_id=1DAY&time_start=${start}&time_end=${end}`;
   const response = await fetch(url, config);
   if (!response.ok) {

@@ -9,6 +9,8 @@ import { getExchange, getScatter, getLatestTrades } from './getters';
 import type { LatestTradesInput } from './schemas';
 
 const useExchange = ({ exchange, start, end }: GetExchangeInput) => {
+  console.log('useExchange: ', { exchange, start, end });
+
   const query = useQuery({
     queryKey: ['exchanges', exchange, start, end],
     queryFn: () => getExchange({ exchange, start, end }),
