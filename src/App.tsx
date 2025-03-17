@@ -7,14 +7,14 @@ import styles from './styles/styles'
 
 function App() {
   return (
-    <Box sx={styles.page}>
+    <Container sx={styles.page}>
       <Header />
-      <Container sx={styles.activeArea}>
+      <Box sx={styles.activeArea}>
         <Exchange />
         <ScatterChart />
         <LatestTrades />
-      </Container>
-    </Box>
+      </Box>
+    </Container>
   )
 }
 
