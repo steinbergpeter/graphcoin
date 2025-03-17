@@ -25,7 +25,6 @@ const getExchange = async ({
   start,
   end,
 }: GetExchangeInput): Promise<TransformedExchangeResponse> => {
-  console.log('getExchange: ', { exchange, start, end });
   try {
     const rawApiData: unknown = await queryExchange({ exchange, start, end });
     const validatedApiData = validator(rawApiData, exchangeResponseSchema);

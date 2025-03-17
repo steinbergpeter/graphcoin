@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // // LINE CHART (NIVO)
 // validate a single entry of the API response
-export const exchangeResponseData = z.object({
+export const exchangeResponseDatum = z.object({
   rate_close: z.number(),
   rate_high: z.number(),
   rate_low: z.number(),
@@ -14,9 +14,7 @@ export const exchangeResponseData = z.object({
 });
 
 // validate the entire response array
-export const exchangeResponseSchema = z.array(exchangeResponseData);
-
-// type from the schema
+export const exchangeResponseSchema = z.array(exchangeResponseDatum);
 export type ExchangeResponse = z.infer<typeof exchangeResponseSchema>;
 
 // // SCATTER CHART (APACHE E_CHART)

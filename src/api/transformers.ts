@@ -12,48 +12,40 @@ import type {
 const rateTypes = ['rate_low', 'rate_close', 'rate_open', 'rate_high'] as const;
 type RateType = (typeof rateTypes)[number];
 
-const transformCryptoData = (
+const transformExchangeResponse = (
   parsedData: ExchangeResponse
 ): TransformedExchangeResponse => {
   return rateTypes.map((rateType: RateType, index) => ({
     id: rateType,
-    color: `hsl(${(index * 90) % 360}, 70%, 50%)`, // Generate unique colors
-    data: parsedData
+    color: `hsl(${(index * 90) % 360}, 70%, 50%)`,
+    data: [...parsedData]
       .map((entry) => ({
-        x: new Date(entry.time_period_start), // Convert string to Date object
-        y: entry[rateType], // Dynamically access rate values
+        x: new Date(entry.time_period_start),
+        y: entry[rateType],
       }))
-      .sort((a, b) => a.x.getTime() - b.x.getTime()), // Ensure chronological order
+      .sort((a, b) => a.x.getTime() - b.x.getTime()),
   }));
 };
 
 const transformScatterData = (
   parsedData: ScatterApiResponse
 ): TransformedScatterResponse => {
+  const data = JSON.parse(JSON.stringify(parsedData)) as ScatterApiResponse;
   return {
     BTC: {
       name: 'BTC',
       type: 'scatter',
-      data: parsedData.BTC.map((entry) => [
-        entry.price_close,
-        entry.volume_traded,
-      ]),
+      data: data.BTC.map((entry) => [entry.price_close, entry.volume_traded]),
     },
     ETH: {
       name: 'ETH',
       type: 'scatter',
-      data: parsedData.ETH.map((entry) => [
-        entry.price_close,
-        entry.volume_traded,
-      ]),
+      data: data.ETH.map((entry) => [entry.price_close, entry.volume_traded]),
     },
     XRP: {
       name: 'XRP',
       type: 'scatter',
-      data: parsedData.XRP.map((entry) => [
-        entry.price_close,
-        entry.volume_traded,
-      ]),
+      data: data.XRP.map((entry) => [entry.price_close, entry.volume_traded]),
     },
   };
 };
@@ -61,7 +53,7 @@ const transformScatterData = (
 const transformLatestTrades = (
   parsedData: LatestTradesResponse
 ): TransformedTradesResponse => {
-  return parsedData.map((trade) => {
+  return [...parsedData].map((trade) => {
     const [exchange, marketType, baseAsset, quoteAsset] =
       trade.symbol_id.split('_');
 
@@ -97,4 +89,8 @@ const transformLatestTrades = (
   });
 };
 
-export { transformCryptoData, transformScatterData, transformLatestTrades };
+export {
+  transformExchangeResponse as transformCryptoData,
+  transformScatterData,
+  transformLatestTrades,
+};
