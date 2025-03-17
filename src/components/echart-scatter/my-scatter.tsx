@@ -1,34 +1,34 @@
-import * as echarts from 'echarts';
-import { useEffect, useRef } from 'react';
-import type { TransformedScatterData } from '../../api/types';
-import { Box } from '@mui/material';
-import styles from '../../styles/styles';
+import * as echarts from 'echarts'
+import { useEffect, useRef } from 'react'
+import type { TransformedScatterData } from '../../api/types'
+import { Box } from '@mui/material'
+import styles from '../../styles/styles'
 
 type MyScatterProps = {
   data:
     | {
-        BTC: TransformedScatterData;
-        ETH: TransformedScatterData;
-        XRP: TransformedScatterData;
+        BTC: TransformedScatterData
+        ETH: TransformedScatterData
+        XRP: TransformedScatterData
       }
-    | undefined;
-};
+    | undefined
+}
 
 const MyScatter = ({ data }: MyScatterProps) => {
-  const chartRef = useRef<HTMLDivElement | null>(null);
-  const chartInstance = useRef<echarts.ECharts | null>(null);
+  const chartRef = useRef<HTMLDivElement | null>(null)
+  const chartInstance = useRef<echarts.ECharts | null>(null)
 
   useEffect(() => {
-    if (!chartRef.current) return;
+    if (!chartRef.current) return
     if (!chartInstance.current) {
       chartInstance.current = echarts.init(chartRef.current, undefined, {
         renderer: 'canvas',
-      });
+      })
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    if (!data || !chartInstance.current) return;
+    if (!data || !chartInstance.current) return
 
     const options = {
       tooltip: { trigger: 'item' },
@@ -68,27 +68,27 @@ const MyScatter = ({ data }: MyScatterProps) => {
           itemStyle: { color: '#FFC300' },
         },
       ],
-    };
+    }
 
     chartInstance.current.setOption(options, {
       notMerge: true,
       lazyUpdate: true,
-    });
-  }, [data]);
+    })
+  }, [data])
 
   useEffect(() => {
-    if (!chartRef.current) return;
+    if (!chartRef.current) return
     const observer = new ResizeObserver(() => {
       if (chartInstance.current) {
-        chartInstance.current.resize();
+        chartInstance.current.resize()
       }
-    });
+    })
 
-    observer.observe(chartRef.current);
-    return () => observer.disconnect();
-  }, []);
+    observer.observe(chartRef.current)
+    return () => observer.disconnect()
+  }, [])
 
-  return <Box sx={styles.scatterGraphHolder} ref={chartRef} />;
-};
+  return <Box sx={styles.scatterGraphHolder} ref={chartRef} />
+}
 
-export { MyScatter };
+export { MyScatter }

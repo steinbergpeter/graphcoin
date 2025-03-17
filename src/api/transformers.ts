@@ -2,15 +2,15 @@ import type {
   ScatterApiResponse,
   ExchangeResponse,
   LatestTradesResponse,
-} from './schemas';
+} from './schemas'
 import type {
   TransformedScatterResponse,
   TransformedExchangeResponse,
   TransformedTradesResponse,
-} from './types';
+} from './types'
 
-const rateTypes = ['rate_low', 'rate_close', 'rate_open', 'rate_high'] as const;
-type RateType = (typeof rateTypes)[number];
+const rateTypes = ['rate_low', 'rate_close', 'rate_open', 'rate_high'] as const
+type RateType = (typeof rateTypes)[number]
 
 const transformExchangeResponse = (
   parsedData: ExchangeResponse
@@ -24,13 +24,13 @@ const transformExchangeResponse = (
         y: entry[rateType],
       }))
       .sort((a, b) => a.x.getTime() - b.x.getTime()),
-  }));
-};
+  }))
+}
 
 const transformScatterData = (
   parsedData: ScatterApiResponse
 ): TransformedScatterResponse => {
-  const data = JSON.parse(JSON.stringify(parsedData)) as ScatterApiResponse;
+  const data = JSON.parse(JSON.stringify(parsedData)) as ScatterApiResponse
   return {
     BTC: {
       name: 'BTC',
@@ -47,15 +47,15 @@ const transformScatterData = (
       type: 'scatter',
       data: data.XRP.map((entry) => [entry.price_close, entry.volume_traded]),
     },
-  };
-};
+  }
+}
 
 const transformLatestTrades = (
   parsedData: LatestTradesResponse
 ): TransformedTradesResponse => {
   return [...parsedData].map((trade) => {
     const [exchange, marketType, baseAsset, quoteAsset] =
-      trade.symbol_id.split('_');
+      trade.symbol_id.split('_')
 
     return {
       Exchange: exchange,
@@ -85,12 +85,12 @@ const transformLatestTrades = (
       }).format(trade.price),
       Size: trade.size,
       'Taker Side': trade.taker_side,
-    };
-  });
-};
+    }
+  })
+}
 
 export {
   transformExchangeResponse as transformCryptoData,
   transformScatterData,
   transformLatestTrades,
-};
+}

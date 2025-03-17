@@ -1,15 +1,15 @@
 // filepath: /Users/petermacbookpro/Developer/graphcoin/src/api/hooks.tsx
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query'
 import type {
   GetExchangeInput,
   TransformedScatterData,
   GetScatterInput,
-} from './types';
-import { getExchange, getScatter, getLatestTrades } from './getters';
-import type { LatestTradesInput } from './schemas';
+} from './types'
+import { getExchange, getScatter, getLatestTrades } from './getters'
+import type { LatestTradesInput } from './schemas'
 
 const useExchange = ({ exchange, start, end }: GetExchangeInput) => {
-  console.log('useExchange: ', { exchange, start, end });
+  console.log('useExchange: ', { exchange, start, end })
 
   const query = useQuery({
     queryKey: ['exchanges', exchange, start, end],
@@ -18,7 +18,7 @@ const useExchange = ({ exchange, start, end }: GetExchangeInput) => {
     retryDelay: (attempt) => 1000 * attempt,
     staleTime: 1000 * 60 * 5,
     placeholderData: (prevData) => prevData,
-  });
+  })
 
   return {
     ...query,
@@ -26,15 +26,15 @@ const useExchange = ({ exchange, start, end }: GetExchangeInput) => {
     isLoading: query.isLoading,
     isError: query.isError,
     error: query.error as Error | null,
-  };
-};
+  }
+}
 
 const useScatterData = ({ start }: GetScatterInput) => {
   const query = useQuery<
     {
-      BTC: TransformedScatterData;
-      ETH: TransformedScatterData;
-      XRP: TransformedScatterData;
+      BTC: TransformedScatterData
+      ETH: TransformedScatterData
+      XRP: TransformedScatterData
     },
     Error
   >({
@@ -44,7 +44,7 @@ const useScatterData = ({ start }: GetScatterInput) => {
     retryDelay: (attempt) => 1000 * attempt,
     staleTime: 1000 * 60 * 5,
     placeholderData: (prevData) => prevData,
-  });
+  })
 
   return {
     ...query,
@@ -52,8 +52,8 @@ const useScatterData = ({ start }: GetScatterInput) => {
     isLoading: query.isLoading,
     isError: query.isError,
     error: query.error as Error | null,
-  };
-};
+  }
+}
 
 const useLatestTrades = ({ limit }: LatestTradesInput) => {
   const query = useQuery({
@@ -63,7 +63,7 @@ const useLatestTrades = ({ limit }: LatestTradesInput) => {
     retryDelay: (attempt) => 1000 * attempt,
     staleTime: 1000 * 60 * 5,
     placeholderData: (prevData) => prevData,
-  });
+  })
 
   return {
     ...query,
@@ -72,7 +72,7 @@ const useLatestTrades = ({ limit }: LatestTradesInput) => {
     isError: query.isError,
     error: query.error as Error | null,
     refetch: query.refetch,
-  };
-};
+  }
+}
 
-export { useExchange, useScatterData, useLatestTrades };
+export { useExchange, useScatterData, useLatestTrades }

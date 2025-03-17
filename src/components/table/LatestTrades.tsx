@@ -1,21 +1,25 @@
-import { useState } from 'react';
-import { useLatestTrades } from '../../api/hooks';
-import { LatestTradesGrid } from './aggrid';
-import { Box, Button, ButtonGroup, Card, Typography } from '@mui/material';
-import styles from '../../styles/styles';
-import { formatDate } from './utilities';
+import { useState } from 'react'
+import { useLatestTrades } from '../../api/hooks'
+import { LatestTradesGrid } from './aggrid'
+import { Box, Button, ButtonGroup, Card, Typography } from '@mui/material'
+import styles from '../../styles/styles'
+import { formatDate } from './utilities'
 
 const LatestTrades = () => {
-  const [limit, setLimit] = useState<number>(20); // Placeholder for limit state, if needed
-  const { data, isLoading, isError, refetch } = useLatestTrades({ limit });
+  const [limit, setLimit] = useState<number>(20) // Placeholder for limit state, if needed
+  const { data, isLoading, isError, refetch } = useLatestTrades({ limit })
 
   return (
     <Card sx={styles.outerCardTable}>
       {/* HEADER */}
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+        }}
       >
-        <Typography variant='h6' color='primary' fontWeight='bold'>
+        <Typography variant="h6" color="primary" fontWeight="bold">
           {data && data.length
             ? `Latest ${limit} Trades as of ${formatDate(
                 data[0]['Time CoinAPI']
@@ -26,26 +30,26 @@ const LatestTrades = () => {
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Button
               onClick={() => refetch()}
-              variant='contained'
-              color='primary'
-              size='small'
+              variant="contained"
+              color="primary"
+              size="small"
               sx={{ boxShadow: 1 }}
             >
               Update
             </Button>
 
             <ButtonGroup
-              variant='text'
-              color='primary'
-              aria-label='outlined primary button group'
+              variant="text"
+              color="primary"
+              aria-label="outlined primary button group"
               sx={{ boxShadow: 1 }}
             >
               {[10, 20, 50, 100].map((value) => (
                 <Button
                   key={value}
-                  variant='outlined'
+                  variant="outlined"
                   onClick={() => setLimit(value)}
-                  size='small'
+                  size="small"
                   sx={{
                     backgroundColor:
                       limit === value ? 'primary.main' : 'transparent',
@@ -64,9 +68,9 @@ const LatestTrades = () => {
 
       {isLoading && (
         <Typography
-          variant='h5'
-          fontWeight='semibold'
-          color='info'
+          variant="h5"
+          fontWeight="semibold"
+          color="info"
           sx={{ mt: 25 }}
         >
           Loading latest trades data...
@@ -75,9 +79,9 @@ const LatestTrades = () => {
 
       {isError && (
         <Typography
-          variant='h5'
-          fontWeight='semibold'
-          color='warning'
+          variant="h5"
+          fontWeight="semibold"
+          color="warning"
           sx={{ mt: 25 }}
         >
           There has been an error accessing CoinAPI.
@@ -88,9 +92,9 @@ const LatestTrades = () => {
 
       {data && !data?.length && (
         <Typography
-          variant='h5'
-          fontWeight='semibold'
-          color='warning'
+          variant="h5"
+          fontWeight="semibold"
+          color="warning"
           sx={{ mt: 25 }}
         >
           CoinAPI is not communicating at this time.
@@ -101,7 +105,7 @@ const LatestTrades = () => {
 
       {data?.length ? <LatestTradesGrid data={data} /> : null}
     </Card>
-  );
-};
+  )
+}
 
-export { LatestTrades };
+export { LatestTrades }

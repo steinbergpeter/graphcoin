@@ -1,28 +1,28 @@
-import { Box } from '@mui/material';
-import { ResponsiveLine } from '@nivo/line';
-import styles from '../../styles/styles';
+import { Box } from '@mui/material'
+import { ResponsiveLine } from '@nivo/line'
+import styles from '../../styles/styles'
 
 type Props = {
   data: {
-    id: 'rate_close' | 'rate_high' | 'rate_low' | 'rate_open';
-    color: string;
+    id: 'rate_close' | 'rate_high' | 'rate_low' | 'rate_open'
+    color: string
     data: {
-      x: Date;
-      y: number;
-    }[];
-  }[];
-  period: 'WEEK' | 'MONTH' | 'YEAR';
-};
+      x: Date
+      y: number
+    }[]
+  }[]
+  period: 'WEEK' | 'MONTH' | 'YEAR'
+}
 
 const MyResponsiveLine = ({ data, period }: Props) => {
-  console.log('Exchange data:', data); // Debugging line to check the fetched data
+  console.log('Exchange data:', data) // Debugging line to check the fetched data
 
   const tickSpacing =
     period === 'YEAR'
       ? 'every month'
       : period === 'MONTH'
-      ? 'every week'
-      : 'every 2 days';
+        ? 'every week'
+        : 'every 2 days'
 
   return (
     <Box sx={styles.lineGraphHolder}>
@@ -35,7 +35,7 @@ const MyResponsiveLine = ({ data, period }: Props) => {
           min: 'auto',
           max: 'auto',
         }}
-        xFormat='time:%Y-%m-%d'
+        xFormat="time:%Y-%m-%d"
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
@@ -77,10 +77,10 @@ const MyResponsiveLine = ({ data, period }: Props) => {
             Value: <strong>${point.data.yFormatted}</strong>
           </div>
         )}
-        enableSlices='x'
+        enableSlices="x"
       />
     </Box>
-  );
-};
+  )
+}
 
-export { MyResponsiveLine };
+export { MyResponsiveLine }

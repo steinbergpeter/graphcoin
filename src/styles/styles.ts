@@ -1,4 +1,4 @@
-import type { SxProps, Theme } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles'
 
 const styles: Record<string, SxProps<Theme>> = {
   // PAGE
@@ -114,6 +114,6 @@ const styles: Record<string, SxProps<Theme>> = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-};
+}
 
-export default styles;
+export default styles
