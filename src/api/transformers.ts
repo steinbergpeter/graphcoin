@@ -1,8 +1,7 @@
-import {
+import type {
   ScatterApiResponse,
-  type ExchangeResponse,
-  type LatestTradesResponse,
-  // type LatestTradesResponse,
+  ExchangeResponse,
+  LatestTradesResponse,
 } from './schemas';
 import type {
   TransformedScatterResponse,
@@ -16,7 +15,7 @@ type RateType = (typeof rateTypes)[number];
 const transformCryptoData = (
   parsedData: ExchangeResponse
 ): TransformedExchangeResponse => {
-  const transformed = rateTypes.map((rateType: RateType, index) => ({
+  return rateTypes.map((rateType: RateType, index) => ({
     id: rateType,
     color: `hsl(${(index * 90) % 360}, 70%, 50%)`, // Generate unique colors
     data: parsedData
@@ -26,8 +25,6 @@ const transformCryptoData = (
       }))
       .sort((a, b) => a.x.getTime() - b.x.getTime()), // Ensure chronological order
   }));
-
-  return transformed;
 };
 
 const transformScatterData = (
@@ -61,30 +58,18 @@ const transformScatterData = (
   };
 };
 
-const parseSymbolId = (symbol_id: string) => {
-  const parts = symbol_id.split('_');
-
-  return {
-    exchange: parts[0], // Exchange name (e.g., GATEIOPERP, BITSTAMP)
-    marketType: parts[1], // Market type (e.g., SPOT, PERP, FUTURES)
-    baseAsset: parts[2], // Base asset (e.g., BTC, ETH)
-    quoteAsset: parts[3], // Quote currency (e.g., USDT, USD)
-  };
-};
-
 const transformLatestTrades = (
   parsedData: LatestTradesResponse
 ): TransformedTradesResponse => {
   return parsedData.map((trade) => {
-    const { exchange, marketType, baseAsset, quoteAsset } = parseSymbolId(
-      trade.symbol_id
-    );
+    const [exchange, marketType, baseAsset, quoteAsset] =
+      trade.symbol_id.split('_');
 
     return {
-      Exchange: exchange, // ✅ Extracted from symbol_id
-      'Market Type': marketType, // ✅ Extracted from symbol_id
-      'Base Asset': baseAsset, // ✅ Extracted from symbol_id
-      'Quote Asset': quoteAsset, // ✅ Extracted from symbol_id
+      Exchange: exchange,
+      'Market Type': marketType,
+      'Base Asset': baseAsset,
+      'Quote Asset': quoteAsset,
       'Time Exchange': new Date(trade.time_exchange).toLocaleString('en-US', {
         year: 'numeric',
         month: 'short',
@@ -112,9 +97,4 @@ const transformLatestTrades = (
   });
 };
 
-export {
-  transformCryptoData,
-  transformScatterData,
-  // transformTableData,
-  transformLatestTrades,
-};
+export { transformCryptoData, transformScatterData, transformLatestTrades };
